@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Spinner và AOS</title>
+
+  <!-- Nap CSS cua thu vien AOS tu CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <link rel="stylesheet" href="stylehd234.css">
+</head>
+<body class="loading">
+  <!-- Màn hình tải trang (Preloader) hiển thị 3 giây trước khi vào trang chính -->
+  <div id="preloader" class="preloader">
+    <div class="spinner" aria-label="Đang tải trang" role="status"></div>
+    <p>Đang tải trang...</p>
+  </div>
+
+  <header class="hero">
+    <div class="hero-content" data-aos="fade-up">
+      <p class="eyebrow">PORTFOLIO CÁ NHÂN</p>
+      <h1>Xin chào, mình là Hoàng.</h1>
+      <p class="intro">Mình xây dựng những giao diện web rõ ràng, hiện đại và dễ sử dụng.</p>
+      <a class="button" href="#projects">Xem dự án</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="about section" data-aos="fade-up">
+      <div class="section-heading">
+        <p class="eyebrow">HOẠT ĐỘNG 2</p>
+        <h2>Loading Master</h2>
+      </div>
+
+      <!-- Vong tron loading: border tren co mau khac de tao cam giac xoay -->
+      <div class="loader-box">
+        <div class="spinner" aria-label="Đang tải" role="status"></div>
+        <p>Đang tải nội dung...</p>
+      </div>
+    </section>
+
+    <section id="projects" class="projects section">
+      <div class="section-heading" data-aos="fade-right">
+        <p class="eyebrow">HOẠT ĐỘNG 3</p>
+        <h2>Dự án nổi bật</h2>
+        <p>Các thẻ dự án sẽ hiện ra khi bạn cuộn trang xuống.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+          <span class="project-number">01</span>
+          <h3>Website bán hàng</h3>
+          <p>Thiết kế giao diện mua sắm gọn gàng, tập trung vào trải nghiệm người dùng.</p>
+        </article>
+
+        <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+          <span class="project-number">02</span>
+          <h3>Trang giới thiệu</h3>
+          <p>Xây dựng trang giới thiệu thương hiệu với bố cục trực quan và responsive.</p>
+        </article>
+
+        <article class="project-card" data-aos="fade-up" data-aos-delay="300">
+          <span class="project-number">03</span>
+          <h3>Bảng điều khiển</h3>
+          <p>Trình bày dữ liệu theo cách dễ đọc, giúp người dùng thao tác nhanh hơn.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer data-aos="fade-up">
+    <p>© 2026 Hoang Portfolio</p>
+  </footer>
+
+  <!-- Nap JavaScript cua AOS va xu ly hieu ung tai trang 3 giay -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Cho man hinh loading chay dung 3 giay (3000ms) truoc khi vao trang
+    setTimeout(function () {
+      const preloader = document.getElementById('preloader');
+      if (preloader) {
+        preloader.classList.add('hidden');
+      }
+      document.body.classList.remove('loading');
+
+      // Khoi tao hieu ung cuon trang AOS sau khi trang hien ra
+      AOS.init({
+        duration: 800,
+        once: true
+      });
+    }, 3000);
+  </script>
+</body>
+</html>
