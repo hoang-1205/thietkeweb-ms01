@@ -5,15 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio cá nhân của Nguyễn Văn Hoàng, Frontend Developer với các kỹ năng, dự án và thông tin liên hệ.">
     <title>Nguyễn Văn Hoàng | Frontend Developer</title>
+    <!-- Tối ưu mạng (Resource Hints): Thiết lập kết nối sớm đến CDN giảm độ trễ DNS & SSL Handshake -->
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <!-- Thư viện hiệu ứng cuộn trang AOS CSS từ CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
     <link rel="stylesheet" href="GioiThieuVeHoang.css">
 </head>
 <body>
+    <!-- Màn hình chờ (Preloader) hiển thị 3 giây trước khi vào trang -->
+    <div id="preloader" class="preloader" aria-live="polite">
+        <div class="preloader__spinner" role="status" aria-label="Đang tải trang"></div>
+        <p class="preloader__text">Đang tải trang...</p>
+    </div>
+
     <!-- Header định danh phần đầu trang và cung cấp ngữ cảnh chính cho người dùng cũng như công cụ tìm kiếm. -->
     <header class="site-header" id="trang-chu">
         <!-- Nav chứa các liên kết điều hướng chính đến những khu vực quan trọng, giúp người dùng và trình đọc màn hình di chuyển dễ dàng. -->
         <nav class="site-navigation" aria-label="Điều hướng chính">
             <a class="site-navigation__brand" href="#trang-chu">Nguyễn Văn Hoàng</a>
-            <ul class="site-navigation__list">
+
+            <ul class="site-navigation__list" id="primary-menu">
                 <li class="site-navigation__item">
                     <a class="site-navigation__link" href="#gioi-thieu">Giới thiệu</a>
                 </li>
@@ -24,72 +36,397 @@
                     <a class="site-navigation__link" href="#du-an">Dự án</a>
                 </li>
                 <li class="site-navigation__item">
+                    <a class="site-navigation__link" href="#hoc-van">Học vấn</a>
+                </li>
+                <li class="site-navigation__item">
                     <a class="site-navigation__link" href="#lien-he">Liên hệ</a>
                 </li>
+                <!-- Biểu tượng đổi giao diện sáng/tối đặt ở bên phải tab Liên hệ -->
+                <li class="site-navigation__item site-navigation__item--theme">
+                    <span class="theme-toggle__label">Chế độ giao diện</span>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Chuyển chế độ sáng/tối" title="Chuyển đổi giao diện Sáng / Tối">
+                        <span class="theme-toggle__icon" aria-hidden="true">🌙</span>
+                    </button>
+                </li>
             </ul>
+
+            <!-- Nút Hamburger Menu chuyển đổi mượt mà thành dấu X khi mở (Mobile) -->
+            <button class="hamburger-btn" id="menu-toggle" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="primary-menu">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
         </nav>
     </header>
 
     <!-- Main bao bọc toàn bộ nội dung cốt lõi duy nhất của trang, giúp công cụ tìm kiếm và công nghệ hỗ trợ nhận diện nội dung chính. -->
     <main class="portfolio-main">
-        <!-- Section nhóm phần giới thiệu và mục tiêu nghề nghiệp thành một chủ đề độc lập, tạo cấu trúc nội dung rõ ràng cho SEO. -->
-        <section class="hero-section" id="gioi-thieu" aria-labelledby="hero-title">
-            <p class="hero-section__eyebrow">Xin chào, tôi là</p>
-            <h1 class="hero-section__title" id="hero-title">Nguyễn Văn Hoàng</h1>
-            <p class="hero-section__role">Frontend Developer</p>
-            <p class="hero-section__description">
-                Tôi xây dựng những trải nghiệm web nhanh, dễ tiếp cận và tập trung vào nhu cầu thực tế của người dùng.
-            </p>
-            <a class="hero-section__cta" href="#du-an">Xem dự án nổi bật</a>
+        <!-- Section 1: Hero - Giới thiệu tổng quan và số liệu nổi bật -->
+        <section class="hero-section" id="gioi-thieu" aria-labelledby="hero-title" data-aos="fade-up">
+            <div class="hero-layout">
+                <!-- Cột trái: Giới thiệu chung -->
+                <div class="hero-content">
+                    <p class="hero-section__eyebrow">Xin chào, tôi là</p>
+                    <h1 class="hero-section__title" id="hero-title">Nguyễn Văn Hoàng</h1>
+                    <p class="hero-section__role typing-container">
+                        <span class="typing-text">Tôi là một Web Developer...</span>
+                    </p>
+                    <p class="hero-section__description">
+                        Tôi xây dựng những trải nghiệm web hiện đại, tối ưu hiệu năng và chú trọng vào khả năng tương tác trực quan của người dùng.
+                    </p>
+                    <a class="hero-section__cta" href="#du-an">Xem dự án nổi bật</a>
+                </div>
+
+                <!-- Cột phải: Thẻ nhân sự lật 180 độ 3D (Card Flip Effect) -->
+                <div class="flip-card" tabindex="0" aria-label="Thẻ nhân sự Nguyễn Văn Hoàng. Rê chuột để xem thông tin liên hệ." data-aos="zoom-in" data-aos-delay="100">
+                    <div class="flip-card__inner">
+                        <!-- Mặt trước: Hồ sơ nhân sự -->
+                        <div class="flip-card__face flip-card__front">
+                            <span class="flip-card__badge">Nhân sự chính thức</span>
+                            <div class="flip-card__avatar">
+                                <span class="flip-card__avatar-text">VH</span>
+                            </div>
+                            <div>
+                                <h3 class="flip-card__name">Nguyễn Văn Hoàng</h3>
+                                <p class="flip-card__title">Frontend Developer</p>
+                                <p class="flip-card__dept">Phòng Phát Triển Giao Diện Web</p>
+                            </div>
+                            <div class="flip-card__id">Mã NS: <strong>NV-2026-FE</strong></div>
+                            <span class="flip-card__hint">↻ Rê chuột để xem liên hệ</span>
+                        </div>
+
+                        <!-- Mặt sau: Thông tin liên hệ -->
+                        <div class="flip-card__face flip-card__back">
+                            <h3 class="flip-card__back-title">Thông Tin Liên Hệ</h3>
+                            <ul class="flip-card__contact-list">
+                                <li class="flip-card__contact-item">
+                                    <span class="flip-card__contact-label">Email công việc</span>
+                                    <a class="flip-card__contact-value" href="mailto:ngvanhoang1205@gmail.com">ngvanhoang1205@gmail.com</a>
+                                </li>
+                                <li class="flip-card__contact-item">
+                                    <span class="flip-card__contact-label">Hotline / Zalo</span>
+                                    <a class="flip-card__contact-value" href="tel:0987654321">+84 987 654 321</a>
+                                </li>
+                                <li class="flip-card__contact-item">
+                                    <span class="flip-card__contact-label">Khu vực làm việc</span>
+                                    <span class="flip-card__contact-value">Hà Nội, Việt Nam</span>
+                                </li>
+                                <li class="flip-card__contact-item">
+                                    <span class="flip-card__contact-label">Trạng thái</span>
+                                    <span class="flip-card__status-tag">
+                                        <span class="flip-card__status-dot"></span> Đang nhận dự án mới
+                                    </span>
+                                </li>
+                            </ul>
+                            <a href="#lien-he" class="flip-card__btn">Gửi lời nhắn ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Thống kê nhanh tạo độ tin cậy và ấn tượng trực quan -->
+            <div class="hero-stats" data-aos="fade-up" data-aos-delay="150">
+                <div class="hero-stats__item">
+                    <span class="hero-stats__number">4+</span>
+                    <span class="hero-stats__label">Dự án hoàn thiện</span>
+                </div>
+                <div class="hero-stats__item">
+                    <span class="hero-stats__number">100%</span>
+                    <span class="hero-stats__label">Responsive Design</span>
+                </div>
+                <div class="hero-stats__item">
+                    <span class="hero-stats__number">500+</span>
+                    <span class="hero-stats__label">Giờ thực hành code</span>
+                </div>
+                <div class="hero-stats__item">
+                    <span class="hero-stats__number">A11y</span>
+                    <span class="hero-stats__label">Chuẩn Semantic Web</span>
+                </div>
+            </div>
         </section>
 
-        <!-- Section trình bày một nhóm chủ đề về năng lực và công nghệ, giúp nội dung dễ quét và dễ hiểu với người dùng hỗ trợ. -->
-        <section class="skills-section" id="ky-nang" aria-labelledby="skills-title">
+        <!-- Section 2: Kỹ năng và Công nghệ được phân nhóm bài bản -->
+        <section class="skills-section" id="ky-nang" aria-labelledby="skills-title" data-aos="fade-up">
             <h2 class="skills-section__title" id="skills-title">Kỹ năng và công nghệ</h2>
-            <ul class="skills-section__list">
-                <li class="skills-section__item">HTML5 Semantic</li>
-                <li class="skills-section__item">CSS3 và Responsive Design</li>
-                <li class="skills-section__item">JavaScript ES6+</li>
-                <li class="skills-section__item">React.js</li>
-                <li class="skills-section__item">Git và GitHub</li>
-            </ul>
+            
+            <!-- Danh sách thanh đo kỹ năng tự động chạy từ 0% đến giá trị đích khi tải trang xong -->
+            <div class="skills-bars-grid" data-aos="fade-up">
+                <div class="skill-item">
+                    <div class="skill-item__header">
+                        <span class="skill-item__name">🌐 HTML5 & Semantic Web</span>
+                        <span class="skill-item__percent" data-target="90">0%</span>
+                    </div>
+                    <div class="skill-item__track">
+                        <div class="skill-item__fill" data-target="90"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-item__header">
+                        <span class="skill-item__name">🎨 CSS3 & Responsive Design</span>
+                        <span class="skill-item__percent" data-target="85">0%</span>
+                    </div>
+                    <div class="skill-item__track">
+                        <div class="skill-item__fill" data-target="85"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-item__header">
+                        <span class="skill-item__name">⚡ JavaScript Hiện đại (ES6+)</span>
+                        <span class="skill-item__percent" data-target="80">0%</span>
+                    </div>
+                    <div class="skill-item__track">
+                        <div class="skill-item__fill" data-target="80"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-item__header">
+                        <span class="skill-item__name">⚛️ React.js & Components</span>
+                        <span class="skill-item__percent" data-target="75">0%</span>
+                    </div>
+                    <div class="skill-item__track">
+                        <div class="skill-item__fill" data-target="75"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-item__header">
+                        <span class="skill-item__name">🐙 Git & GitHub Quản lý mã nguồn</span>
+                        <span class="skill-item__percent" data-target="85">0%</span>
+                    </div>
+                    <div class="skill-item__track">
+                        <div class="skill-item__fill" data-target="85"></div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-item__header">
+                        <span class="skill-item__name">🚀 Tối ưu Hiệu năng & SEO</span>
+                        <span class="skill-item__percent" data-target="80">0%</span>
+                    </div>
+                    <div class="skill-item__track">
+                        <div class="skill-item__fill" data-target="80"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-group">
+                <h3 class="skills-group__heading">⚡ Lập trình Frontend cốt lõi</h3>
+                <ul class="skills-section__list">
+                    <li class="skills-section__item">HTML5 Semantic & Chuẩn SEO On-page</li>
+                    <li class="skills-section__item">CSS3 (Flexbox, Grid, Keyframes Animation)</li>
+                    <li class="skills-section__item">JavaScript Hiện đại (ES6+, DOM, Fetch API)</li>
+                    <li class="skills-section__item">React.js (Components, Hooks, State)</li>
+                </ul>
+            </div>
+
+            <div class="skills-group">
+                <h3 class="skills-group__heading">🛠️ Công cụ & Quy trình phát triển</h3>
+                <ul class="skills-section__list">
+                    <li class="skills-section__item">Git & Quản lý mã nguồn GitHub</li>
+                    <li class="skills-section__item">Vite & Trình đóng gói hiện đại</li>
+                    <li class="skills-section__item">Chrome DevTools & Tối ưu hiệu năng</li>
+                    <li class="skills-section__item">Chuyển đổi Figma sang giao diện chuẩn Pixel</li>
+                </ul>
+            </div>
         </section>
 
-        <!-- Section tập hợp các dự án cùng một chủ đề; cách nhóm này cung cấp ngữ nghĩa rõ ràng cho SEO và điều hướng bằng trình đọc màn hình. -->
-        <section class="projects-section" id="du-an" aria-labelledby="projects-title">
+        <!-- Banner Parallax với hiệu ứng background-attachment: fixed -->
+        <section class="parallax-banner" aria-label="Thông điệp nghề nghiệp">
+            <div class="parallax-banner__content" data-aos="fade-up">
+                <span class="parallax-banner__tag">Triết lý lập trình</span>
+                <h2 class="parallax-banner__title">
+                    "Giao diện đẹp thu hút ánh nhìn, trải nghiệm mượt mà giữ chân người dùng."
+                </h2>
+                <p class="parallax-banner__desc">
+                    Mỗi dòng code đều được chăm chút tỉ mỉ về tốc độ tải trang, chuẩn SEO ngữ nghĩa và khả năng tương thích đa nền tảng.
+                </p>
+                <a href="#du-an" class="hero-section__cta">Khám phá các sản phẩm</a>
+            </div>
+        </section>
+
+        <!-- Section 3: Các dự án nổi bật đã thực hiện -->
+        <section class="projects-section" id="du-an" aria-labelledby="projects-title" data-aos="fade-up">
             <h2 class="projects-section__title" id="projects-title">Dự án nổi bật</h2>
 
-            <!-- Article đại diện cho một nội dung dự án độc lập, để mỗi dự án có thể được đọc, chia sẻ và tái sử dụng riêng biệt. -->
-            <article class="project-card" id="du-an-portfolio">
-                <h3 class="project-card__title">Website Portfolio cá nhân</h3>
+            <!-- Lưới danh sách sản phẩm / dự án: CSS Grid auto-fit -->
+            <div class="projects-grid product-grid">
+                <!-- Dự án 1: Portfolio Cá Nhân -->
+                <article class="project-card" id="du-an-portfolio" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="project-card__title">Website Portfolio Cá Nhân</h3>
                 <p class="project-card__description">
-                    Website giới thiệu năng lực, kinh nghiệm và các sản phẩm đã thực hiện với giao diện responsive.
+                    Trang giới thiệu hồ sơ năng lực cá nhân với thiết kế responsive đa nền tảng, tích hợp hiệu ứng nâng nút cubic-bezier tự nhiên, vòng xoay loading 360 độ và thư viện cuộn trang AOS.
                 </p>
-                <p class="project-card__technologies">
-                    <strong>Công nghệ:</strong> HTML5, CSS3, JavaScript
-                </p>
-                <a class="project-card__link" href="#lien-he">Trao đổi về dự án</a>
+                <div class="tech-badges">
+                    <span class="tech-badge">HTML5 Semantic</span>
+                    <span class="tech-badge">CSS3 Custom Properties</span>
+                    <span class="tech-badge">AOS Animation</span>
+                    <span class="tech-badge">JavaScript</span>
+                </div>
+                <div class="project-card__actions">
+                    <a class="hero-section__cta" href="#trang-chu">Xem Demo Trực Tiếp</a>
+                    <a class="project-card__btn-secondary" href="https://github.com/" target="_blank" rel="noopener noreferrer">Mã Nguồn GitHub</a>
+                </div>
             </article>
 
-            <!-- Article thứ hai là một mục dự án độc lập, giúp cấu trúc danh sách dự án có ngữ nghĩa và dễ mở rộng. -->
-            <article class="project-card" id="du-an-task-manager">
-                <h3 class="project-card__title">Ứng dụng quản lý công việc</h3>
+            <!-- Dự án 2: Quản lý công việc (Task Manager) -->
+            <article class="project-card" id="du-an-task-manager" data-aos="fade-up" data-aos-delay="150">
+                <h3 class="project-card__title">Ứng Dụng Quản Lý Công Việc (Task Manager)</h3>
                 <p class="project-card__description">
-                    Ứng dụng hỗ trợ tạo, theo dõi và sắp xếp công việc theo trạng thái và mức độ ưu tiên.
+                    Ứng dụng hỗ trợ lập kế hoạch công việc hằng ngày, cho phép thêm, sửa, xóa, lọc theo mức độ ưu tiên và lưu trữ trạng thái tự động với LocalStorage.
                 </p>
-                <p class="project-card__technologies">
-                    <strong>Công nghệ:</strong> React.js, CSS3, REST API
-                </p>
-                <a class="project-card__link" href="#lien-he">Trao đổi về dự án</a>
+                <div class="tech-badges">
+                    <span class="tech-badge">React.js</span>
+                    <span class="tech-badge">CSS Modules</span>
+                    <span class="tech-badge">LocalStorage API</span>
+                    <span class="tech-badge">REST API</span>
+                </div>
+                <div class="project-card__actions">
+                    <a class="project-card__link" href="#lien-he">Trao đổi dự án</a>
+                    <a class="project-card__btn-secondary" href="https://github.com/" target="_blank" rel="noopener noreferrer">Mã Nguồn GitHub</a>
+                </div>
             </article>
+
+            <!-- Dự án 3: Landing Page Sản Phẩm Công Nghệ -->
+            <article class="project-card" id="du-an-landing-page" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="project-card__title">Trang Đích Giới Thiệu Sản Phẩm Công Nghệ</h3>
+                <p class="project-card__description">
+                    Landing page hiện đại cho thiết bị tai nghe thông minh với giao diện tối ưu chuyển đổi, hỗ trợ Dark/Light mode và hiệu ứng cuộn tương tác mượt mà.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">HTML5</span>
+                    <span class="tech-badge">CSS Grid & Flexbox</span>
+                    <span class="tech-badge">CSS Variables</span>
+                    <span class="tech-badge">JavaScript ES6</span>
+                </div>
+                <div class="project-card__actions">
+                    <a class="project-card__link" href="#lien-he">Trao đổi dự án</a>
+                    <a class="project-card__btn-secondary" href="https://github.com/" target="_blank" rel="noopener noreferrer">Mã Nguồn GitHub</a>
+                </div>
+            </article>
+
+            <!-- Dự án 4: Tra cứu thời tiết Realtime -->
+            <article class="project-card" id="du-an-weather-app" data-aos="fade-up" data-aos-delay="250">
+                <h3 class="project-card__title">Ứng Dụng Tra Cứu Thời Tiết Thời Gian Thực</h3>
+                <p class="project-card__description">
+                    Ứng dụng tra cứu thời tiết toàn cầu thông qua OpenWeather API, hiển thị biểu đồ nhiệt độ trong ngày, độ ẩm, sức gió và dự báo các ngày tiếp theo.
+                </p>
+                <div class="tech-badges">
+                    <span class="tech-badge">JavaScript Fetch API</span>
+                    <span class="tech-badge">Async/Await</span>
+                    <span class="tech-badge">OpenWeather API</span>
+                    <span class="tech-badge">Responsive UI</span>
+                </div>
+                <div class="project-card__actions">
+                    <a class="project-card__link" href="#lien-he">Trao đổi dự án</a>
+                    <a class="project-card__btn-secondary" href="https://github.com/" target="_blank" rel="noopener noreferrer">Mã Nguồn GitHub</a>
+                </div>
+            </article>
+            </div>
+        </section>
+
+        <!-- Section 4: Quá trình học tập & Lộ trình phát triển -->
+        <section class="education-section" id="hoc-van" aria-labelledby="education-title" data-aos="fade-up">
+            <h2 class="skills-section__title" id="education-title">Học vấn & Lộ trình</h2>
+            <div class="timeline">
+                <div class="timeline__item">
+                    <span class="timeline__period">2024 - Hiện tại</span>
+                    <h3 class="timeline__title">Sinh viên Chuyên ngành Công nghệ Thông tin</h3>
+                    <p class="timeline__subtitle">Định hướng Lập trình Web Frontend & Trải nghiệm Người dùng</p>
+                    <p class="timeline__desc">
+                        Nghiên cứu cấu trúc dữ liệu, giải thuật, mạng máy tính và chuyên sâu về thiết kế giao diện web responsive, chuẩn ngữ nghĩa semantic.
+                    </p>
+                </div>
+                <div class="timeline__item">
+                    <span class="timeline__period">2025</span>
+                    <h3 class="timeline__title">Chứng chỉ Responsive Web Design & JavaScript Algorithms</h3>
+                    <p class="timeline__subtitle">Nền tảng Tự học & Đồ án thực chiến</p>
+                    <p class="timeline__desc">
+                        Hoàn thành hơn 300 bài tập thực hành về CSS Flexbox, Grid, Media Queries, thao tác DOM và JavaScript ES6 hiện đại.
+                    </p>
+                </div>
+                <div class="timeline__item">
+                    <span class="timeline__period">2026</span>
+                    <h3 class="timeline__title">Xây dựng Đồ án Frontend & Tối ưu Hiệu năng (Core Web Vitals)</h3>
+                    <p class="timeline__subtitle">Mục tiêu: Vị trí Thực tập sinh / Junior Frontend Developer</p>
+                    <p class="timeline__desc">
+                        Tập trung vào phát triển ứng dụng React, tối ưu chỉ số Core Web Vitals (LCP, CLS, FID) và xây dựng portfolio cá nhân chuyên nghiệp.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Khu vực Liên hệ & Biểu mẫu tương tác -->
+        <section class="contact-section" id="lien-he" aria-labelledby="contact-title" data-aos="fade-up">
+            <h2 class="skills-section__title" id="contact-title">Liên hệ hợp tác</h2>
+            <div class="contact-container">
+                <!-- Cột thông tin liên hệ trực tiếp -->
+                <div class="contact-info">
+                    <h3 class="contact-info__title">Cùng trao đổi về cơ hội mới!</h3>
+                    <p class="contact-info__desc">
+                        Tôi luôn sẵn sàng đón nhận các cơ hội thực tập, dự án tự do hoặc hợp tác phát triển sản phẩm web. Hãy kết nối với tôi nhé!
+                    </p>
+
+                    <div class="contact-status">
+                        <span class="contact-status__dot"></span>
+                        <span>Đang tìm kiếm cơ hội Thực tập sinh / Junior</span>
+                    </div>
+
+                    <ul class="contact-info__list" style="margin-top: 1.5rem;">
+                        <li class="contact-info__item">
+                            <span class="contact-info__icon">✉️</span>
+                            <div>
+                                <small style="display:block; color:var(--muted-color);">Email liên hệ</small>
+                                <a href="mailto:ngvanhoang1205@gmail.com">ngvanhoang1205@gmail.com</a>
+                            </div>
+                        </li>
+                        <li class="contact-info__item">
+                            <span class="contact-info__icon">📍</span>
+                            <div>
+                                <small style="display:block; color:var(--muted-color);">Khu vực làm việc</small>
+                                <span>Hà Nội, Việt Nam (Onsite / Remote)</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Cột biểu mẫu liên hệ -->
+                <form class="contact-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã gửi lời nhắn! Tôi sẽ phản hồi sớm nhất.');">
+                    <div class="form-group">
+                        <label class="form-label" for="contact-name">Họ và tên *</label>
+                        <input class="form-input" type="text" id="contact-name" name="name" placeholder="Nguyễn Văn A" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="contact-email">Địa chỉ Email *</label>
+                        <input class="form-input" type="email" id="contact-email" name="email" placeholder="example@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="contact-subject">Tiêu đề</label>
+                        <input class="form-input" type="text" id="contact-subject" name="subject" placeholder="Cơ hội thực tập / Trao đổi dự án">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="contact-message">Lời nhắn *</label>
+                        <textarea class="form-textarea" id="contact-message" name="message" rows="4" placeholder="Nội dung lời nhắn của bạn..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="hero-section__cta" style="align-self: flex-start; margin-top: 0.5rem;">
+                        Gửi lời nhắn ngay
+                    </button>
+                </form>
+            </div>
         </section>
     </main>
 
-    <!-- Footer cung cấp thông tin kết thúc trang, bản quyền, liên hệ và các kênh mạng xã hội để người dùng dễ kết nối. -->
-    <footer class="site-footer" id="lien-he">
+    <!-- Footer cung cấp thông tin kết thúc trang, bản quyền và các kênh mạng xã hội -->
+    <footer class="site-footer" id="site-footer">
         <p class="site-footer__copyright">&copy; 2026 Nguyễn Văn Hoàng. Bảo lưu mọi quyền.</p>
         <address class="site-footer__contact">
-            Email: <a class="site-footer__contact-link" href="mailto:hello@example.com">hello@example.com</a>
+            Email: <a class="site-footer__contact-link" href="mailto:ngvanhoang1205@gmail.com">ngvanhoang1205@gmail.com</a>
         </address>
         <ul class="site-footer__social-list" aria-label="Liên kết mạng xã hội">
             <li class="site-footer__social-item">
@@ -100,5 +437,126 @@
             </li>
         </ul>
     </footer>
+
+    <!-- Nút tròn nổi Liên hệ (Floating Action Button - FAB) kèm hiệu ứng phập phồng (Pulse) -->
+    <a href="#lien-he" class="fab-contact" aria-label="Liên hệ nhanh với Hoàng" title="Liên hệ ngay">
+        <span class="fab-contact__icon" aria-hidden="true">💬</span>
+        <span class="fab-contact__tooltip">Liên hệ ngay</span>
+    </a>
+
+    <!-- Thư viện JS hiệu ứng cuộn trang AOS từ CDN -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+    <!-- Script điều khiển hiển thị màn hình loading đủ 3 giây rồi ẩn mượt mà & khởi tạo AOS -->
+    <script>
+        // 1. Khởi tạo thư viện AOS (Animate On Scroll) tối ưu hiệu năng cuộn
+        AOS.init({
+            duration: 800,       // Thời lượng hiệu ứng: 800ms (0.8s)
+            once: true,          // Tiết kiệm CPU: Chỉ kích hoạt 1 lần duy nhất khi cuộn tới
+            offset: 100,         // Kích hoạt khi phần tử cách đáy màn hình 100px
+            easing: 'ease-out',  // Gia tốc chuyển động êm ái
+            debounceDelay: 50,   // Trì hoãn tính toán lại khi người dùng resize cửa sổ
+            throttleDelay: 99,   // Giới hạn tần suất xử lý sự kiện scroll giữ 60fps mượt mà
+        });
+
+        // 2. Xử lý preloader: Khi cấu trúc DOM đã sẵn sàng
+        window.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                // Đợi đúng 3000ms (3 giây) trước khi ẩn
+                setTimeout(() => {
+                    // Kích hoạt class để CSS thực hiện hiệu ứng mờ dần (fade out)
+                    preloader.classList.add('preloader--hidden');
+
+                    // Làm mới lại tọa độ các khối phần tử cho AOS sau khi preloader biến mất
+                    AOS.refresh();
+
+                    // Tối ưu bộ nhớ (Memory Cleanup): Gỡ hoàn toàn DOM node của preloader sau khi hoàn tất chuyển cảnh
+                    preloader.addEventListener('transitionend', () => {
+                        preloader.remove();
+                    }, { once: true });
+                }, 3000);
+            }
+
+            // 3. Xử lý đóng/mở Mobile Hamburger Menu và hiệu ứng biến đổi thành chữ X
+            const menuToggle = document.getElementById('menu-toggle');
+            const primaryMenu = document.getElementById('primary-menu');
+
+            if (menuToggle && primaryMenu) {
+                menuToggle.addEventListener('click', () => {
+                    const isOpen = menuToggle.classList.toggle('is-active');
+                    primaryMenu.classList.toggle('is-open', isOpen);
+                    menuToggle.setAttribute('aria-expanded', isOpen);
+                    menuToggle.setAttribute('aria-label', isOpen ? 'Đóng menu điều hướng' : 'Mở menu điều hướng');
+                });
+
+                // Tự động đóng menu khi người dùng chọn vào 1 liên kết
+                primaryMenu.querySelectorAll('.site-navigation__link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        menuToggle.classList.remove('is-active');
+                        primaryMenu.classList.remove('is-open');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        menuToggle.setAttribute('aria-label', 'Mở menu điều hướng');
+                    });
+                });
+            }
+
+            // 4. Kích hoạt hiệu ứng Skill Bar chạy từ 0% đến giá trị đích khi trang tải xong
+            const initSkillBars = () => {
+                const skillFills = document.querySelectorAll('.skill-item__fill');
+                const skillPercents = document.querySelectorAll('.skill-item__percent');
+
+                // Chạy thanh độ rộng từ 0% đến giá trị đích
+                skillFills.forEach(fill => {
+                    const target = fill.getAttribute('data-target');
+                    if (target) {
+                        fill.style.width = target + '%';
+                    }
+                });
+
+                // Chạy số phần trăm đếm tăng dần đồng bộ với thanh tiến trình
+                skillPercents.forEach(percentEl => {
+                    const target = parseInt(percentEl.getAttribute('data-target'), 10);
+                    if (target) {
+                        let current = 0;
+                        const stepTime = Math.max(15, Math.floor(1500 / target));
+                        const counter = setInterval(() => {
+                            current += 1;
+                            percentEl.textContent = current + '%';
+                            if (current >= target) {
+                                clearInterval(counter);
+                                percentEl.textContent = target + '%';
+                            }
+                        }, stepTime);
+                    }
+                });
+            };
+
+            // Kích hoạt khi trang web tải xong (ngay sau khi preloader 3 giây kết thúc)
+            setTimeout(initSkillBars, 3200);
+
+            // 5. Xử lý Chuyển đổi Dark Mode / Light Mode
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle ? themeToggle.querySelector('.theme-toggle__icon') : null;
+
+            // Kiểm tra trạng thái đã lưu từ trước hoặc mặc định theo hệ điều hành của người dùng
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                document.body.classList.add('dark');
+                if (themeIcon) themeIcon.textContent = '☀️';
+            }
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    // Khi thêm hoặc gỡ class .dark, toàn bộ biến CSS sẽ tự động cập nhật
+                    const isDark = document.body.classList.toggle('dark');
+                    if (themeIcon) themeIcon.textContent = isDark ? '☀️' : '🌙';
+                    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
